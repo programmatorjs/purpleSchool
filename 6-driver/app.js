@@ -4,6 +4,6 @@ const isDrunk = false;
 
 const check = ( age >= 18) && !isDrunk && hasLicence;
 
-const licenseToDrive = check ? console.log('Может ехать') : console.log('Вождение запрещено')
+const licenseToDrive = check ? console.log('Может ехать') : console.log('Вождение запрещено');
 
 
