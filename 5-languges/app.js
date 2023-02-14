@@ -1,4 +1,4 @@
-let selectedLanguage = 'en';
+const selectedLanguage = 'en';
 
 switch(selectedLanguage) {
     case 'en':

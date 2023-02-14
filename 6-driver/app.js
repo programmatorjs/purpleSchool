@@ -1,9 +1,9 @@
-let hasLicence = true;
-let age = 19;
-let isDrunk = false;
+const hasLicence = true;
+const age = 18;
+const isDrunk = false;
 
-let check = ( age > 18) && !isDrunk && hasLicence;
+const check = ( age >= 18) && !isDrunk && hasLicence;
 
-let licenseToDrive = check ? console.log('Может ехать') : console.log('Вождение запрещено')
+const licenseToDrive = check ? console.log('Может ехать') : console.log('Вождение запрещено')
 
 
