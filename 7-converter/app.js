@@ -1,33 +1,35 @@
-
 function currencyConversion(sum, currentCurrency, targetCurrency) {
-    //central bank rate in rubles
-    const buyUsd = 76.2;
-    const sellUsd = 72.8;
-    const buyEuro = 81;
-    const sellEuro = 78;
+  //central bank rate in rubles
+  const buyUsd = 76.2;
+  const sellUsd = 72.8;
+  const buyEuro = 81;
+  const sellEuro = 78;
 
-    if(targetCurrency === 'usd' && currentCurrency === 'rub') {
-        return sum / buyUsd;
-    
-    } else if (targetCurrency === 'rub' && currentCurrency === 'usd') {
-        return sum * sellUsd;
-    
-    } else if (targetCurrency === 'eur' && currentCurrency === 'rub') {
-        return sum / buyEuro;
-    
-    } else if (targetCurrency === 'rub' && currentCurrency === 'eur') {
-        return sum * sellEuro
-    
-    } /*cross-country exchange through the ruble */
-     else if (targetCurrency === 'usd' && currentCurrency === 'eur') {          
-        return buyEuro / sellUsd * sum;
-    
-    } else if (targetCurrency === 'eur' && currentCurrency === 'usd') {
-        return sellEuro / buyUsd * sum;
-    };
-        
-};
+  const currencyPair = `${currentCurrency}/${targetCurrency}`;
 
-
+  switch (currencyPair) {
+    case 'usd/rub':
+      return sum / buyUsd;
+      break;
+    case 'rub/usd':
+      return sum * sellUsd;
+      break;
+    case 'eur/rub':
+      return sum / buyEuro;
+      break;
+    case 'rub/eur':
+      return sum * sellEuro;
+      break;
+    case 'usd/eur':
+      return (sellEuro / buyUsd) * sum;
+      break;
+    case 'eur/usd':
+      return (buyEuro / sellUsd) * sum;
+      break;
+    default:
+      return 'Обмен данной валюты не осуществляется';
+      break;
+  }
+}
 
 console.log(currencyConversion(1000, 'usd', 'rub'));
