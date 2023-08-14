@@ -9,24 +9,41 @@ const dateArr = [
 ];
 
 function getDate(arrayWithDates) {
-  const correctDates = [];
+  const getFilteredArray = arrayWithDates
+    .map((date) => {
+      const parts = date.split(/[-/.]/);
+      if (parts.length !== 3) {
+        return null;
+      }
+      const [day, month, year] = parts;
+      const numericDay = Number(day);
+      const numericMonth = Number(month);
+      const numericYear = Number(year);
 
-  for (let i = 0; i < arrayWithDates.length; i++) {
-    let date = new Date(arrayWithDates[i]);
-    if (date.toString(arrayWithDates[i]) !== 'Invalid Date') {
-      const formattedDate = date
-        .toLocaleDateString('ru-RU', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        })
-        .replaceAll('/', '-');
-      correctDates.push(formattedDate);
-    }
-  }
-  return correctDates;
+      const numberCheck = 
+        isNaN(numericDay) || 
+        isNaN(numericMonth) || 
+        isNaN(numericYear);
+
+      if (numberCheck) {
+        return null;
+      }
+
+      const checkDayAndMonth =
+        numericDay < 1 ||
+        numericDay > 31 ||
+        numericMonth < 1 ||
+        numericMonth > 12;
+
+      if (checkDayAndMonth) {
+        return null;
+      }
+      return `${day}-${month}-${year}`.replaceAll('/', '-');
+    })
+    .filter((elem) => elem !== null);
+
+  return getFilteredArray;
 }
 
 console.log(getDate(dateArr));
 
-console.log(new Date('10-02-2022'))

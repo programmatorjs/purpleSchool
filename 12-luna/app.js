@@ -5,31 +5,24 @@ const card2 = '4123-4567-8901-2349';
 const card3 = '4561-2612-1234-5467';
 
 function checkCard(card) {
-  const arr = card.replaceAll('-', '').split('');
-  const result = [];
+  const arrNum = card
+    .replaceAll('-', '')
+    .split('')
+    .reverse()
+    .map((num) => Number(num));
 
-  for (let i = 0; i < arr.length; i++) {
-    if (i === 0 || i % 2 === 0) {
-      result.push(arr[i] * 2);
-    } else {
-      result.push(+arr[i]);
+  for (let i = 1; i < arrNum.length; i += 2) {
+    arrNum[i] *= 2;
+    if (arrNum[i] > 9) {
+      arrNum[i] -= 9;
     }
   }
 
-  const finalCat = [];
-  const res = result.map((num) => {
-    if (num >= 10) {
-      finalCat.push(num - 9);
-    } else {
-      finalCat.push(num);
-    }
-  });
-
-  const sum = finalCat.reduce((acc, cur) => {
+  const sum = arrNum.reduce((acc, cur) => {
     return acc + cur;
   }, 0);
 
-  return sum % 10 === 0 ? true : false;
+  return sum % 10 === 0;
 }
 
 console.log(checkCard(card1));

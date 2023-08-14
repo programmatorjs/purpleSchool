@@ -7,11 +7,6 @@ function filterArray(arr, removeFunc) {
       filteredArray.push(arr[i]);
     }
   }
-  if (!!filteredArray.length) {
-    console.log(true);
-  } else {
-    console.log(false);
-  }
 
   return filteredArray;
 }
