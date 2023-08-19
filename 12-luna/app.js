@@ -11,18 +11,21 @@ function checkCard(card) {
     .reverse()
     .map((num) => Number(num));
 
+  if (arrNum.length % 2 !== 0) {
+    return false;
+  }
+
+  let totalAmount = 0;
   for (let i = 1; i < arrNum.length; i += 2) {
     arrNum[i] *= 2;
     if (arrNum[i] > 9) {
-      arrNum[i] -= 9;
+      arrNum[i] - 9;
     }
+
+    totalAmount += arrNum[i];
   }
 
-  const sum = arrNum.reduce((acc, cur) => {
-    return acc + cur;
-  }, 0);
-
-  return sum % 10 === 0;
+  return totalAmount % 10 === 0;
 }
 
 console.log(checkCard(card1));

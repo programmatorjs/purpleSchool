@@ -1,19 +1,21 @@
+'use strict';
+
 let arr = [1, 2, 33, 4, 5, 6];
 
-function filterArray(arr, removeFunc) {
+function filterArray(arr, removeElement) {
   const filteredArray = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (removeFunc(arr[i])) {
-      filteredArray.push(arr[i]);
+  for (const num of arr) {
+    if (!removeElement(num)) {
+      filteredArray.push(num);
     }
   }
 
   return filteredArray;
 }
 
-function removeFunc(element) {
-  return element >= 1;
+function removeElement(element) {
+  return element >= 7;
 }
 
-const filteredArr = filterArray(arr, removeFunc);
+const filteredArr = filterArray(arr, removeElement);
 console.log(filteredArr);
