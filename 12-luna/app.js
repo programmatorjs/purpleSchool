@@ -8,20 +8,26 @@ function checkCard(card) {
   const arrNum = card
     .replaceAll('-', '')
     .split('')
-    .reverse()
     .map((num) => Number(num));
 
-  if (arrNum.length % 2 !== 0) {
-    return false;
+  let totalAmount = 0;
+  if (arrNum.length % 2 === 0) {
+    for (let i = 0; i < arrNum.length - 1; i += 2) {
+      arrNum[i] *= 2;
+      if (arrNum[i] > 9) {
+        arrNum[i] -= 9;
+      }
+    }
+  } else {
+    for (let i = 1; i < arrNum.length; i += 2) {
+      arrNum[i] *= 2;
+      if (arrNum[i] > 9) {
+        arrNum[i] -= 9;
+      }
+    }
   }
 
-  let totalAmount = 0;
-  for (let i = 1; i < arrNum.length; i += 2) {
-    arrNum[i] *= 2;
-    if (arrNum[i] > 9) {
-      arrNum[i] - 9;
-    }
-
+  for (let i = 0; i < arrNum.length; i++) {
     totalAmount += arrNum[i];
   }
 

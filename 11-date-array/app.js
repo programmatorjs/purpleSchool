@@ -19,25 +19,25 @@ function getDate(arrayWithDates) {
         return null;
       }
 
-      const [day, month, year] = parts;
-      const numericDay = Number(day);
-      const numericMonth = Number(month);
+      let [day, month, year] = parts;
+
       const numericYear = Number(year);
 
-      const numberCheck =
-        isNaN(numericDay) || isNaN(numericMonth) || isNaN(numericYear);
+      const numberCheck = isNaN(day) || isNaN(month) || isNaN(numericYear);
 
       if (numberCheck) {
         return null;
       }
-
+      if (month > 12) {
+        [day, month] = [month, day];
+      }
       function isLeapYear(numericYear) {
         return (
           (numericYear % 4 === 0 && numericYear % 100 !== 0) ||
           numericYear % 400 === 0
         );
       }
-      const validDaysMonth = [
+      const daysInMonths = [
         0,
         31,
         isLeapYear(numericYear) ? 29 : 28,
@@ -53,18 +53,10 @@ function getDate(arrayWithDates) {
         31,
       ];
 
-      if (numericDay > validDaysMonth[numericMonth]) {
+      if (day > daysInMonths[month] || day < 1 || month < 1 || month > 12) {
         return null;
       }
-      const checkDayAndMonth =
-        numericDay < 1 ||
-        numericDay > 31 ||
-        numericMonth < 1 ||
-        numericMonth > 12;
 
-      if (checkDayAndMonth) {
-        return null;
-      }
       return `${day}-${month}-${year}`.replaceAll('/', '-');
     })
     .filter((elem) => elem !== null);

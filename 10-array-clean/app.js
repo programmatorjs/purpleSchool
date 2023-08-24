@@ -1,6 +1,6 @@
 'use strict';
 
-let arr = [1, 2, 33, 4, 5, 6];
+const arr = [1, 2, 33, 4, 5, 6];
 
 function filterArray(arr, removeElement) {
   const filteredArray = [];
