@@ -25,7 +25,7 @@ function checkCard(card) {
 
     totalAmount += digit;
   }
-  console.log(totalAmount);
+  
   return totalAmount % 10 === 0;
 }
 
