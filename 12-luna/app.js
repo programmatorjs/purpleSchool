@@ -11,24 +11,14 @@ function checkCard(card) {
     .map((num) => Number(num));
 
   let totalAmount = 0;
-  if (arrNum.length % 2 === 0) {
-    for (let i = 0; i < arrNum.length - 1; i += 2) {
-      arrNum[i] *= 2;
-      if (arrNum[i] > 9) {
-        arrNum[i] -= 9;
-      }
-    }
-  } else {
-    for (let i = 1; i < arrNum.length; i += 2) {
-      arrNum[i] *= 2;
-      if (arrNum[i] > 9) {
-        arrNum[i] -= 9;
-      }
-    }
-  }
+  const startIndex = arrNum.length % 2 === 0 ? 1 : 0;
 
-  for (let i = 0; i < arrNum.length; i++) {
-    totalAmount += arrNum[i];
+  for (let i = startIndex; i < arrNum.length; i += 2) {
+    let digit = arrNum[i] * 2;
+    if (digit > 9) {
+      digit -= 9;
+    }
+    totalAmount += digit;
   }
 
   return totalAmount % 10 === 0;
