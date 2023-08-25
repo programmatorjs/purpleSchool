@@ -9,6 +9,9 @@ const dateArr = [
   '30-02-2002',
   '31-04-2000',
   '29-02-2004',
+  '29-02-2005',
+  '9-02-2008',
+  '31-04-2006',
 ];
 
 function getDate(arrayWithDates) {
@@ -19,18 +22,18 @@ function getDate(arrayWithDates) {
         return null;
       }
 
-      let [day, month, year] = parts;
+      let [day, month, year] = parts.map(Number);
 
-      const numericYear = Number(year);
-
-      const numberCheck = isNaN(day) || isNaN(month) || isNaN(numericYear);
+      const numberCheck = isNaN(day) || isNaN(month) || isNaN(year);
 
       if (numberCheck) {
         return null;
       }
+
       if (month > 12) {
         [day, month] = [month, day];
       }
+
       function isLeapYear(numericYear) {
         return (
           (numericYear % 4 === 0 && numericYear % 100 !== 0) ||
@@ -40,7 +43,7 @@ function getDate(arrayWithDates) {
       const daysInMonths = [
         0,
         31,
-        isLeapYear(numericYear) ? 29 : 28,
+        isLeapYear(year) ? 29 : 28,
         31,
         30,
         31,
@@ -57,7 +60,9 @@ function getDate(arrayWithDates) {
         return null;
       }
 
-      return `${day}-${month}-${year}`.replaceAll('/', '-');
+      return `${day.toString().padStart(2, '0')}-${month
+        .toString()
+        .padStart(2, '0')}-${year}`.replaceAll('/', '-');
     })
     .filter((elem) => elem !== null);
 
