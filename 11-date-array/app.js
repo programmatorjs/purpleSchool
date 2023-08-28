@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 const dateArr = [
   '10-02-2022',
   'тест',
@@ -12,25 +14,35 @@ const dateArr = [
   '29-02-2005',
   '9-02-2008',
   '31-04-2006',
+  '02-01-2023',
+  '01-02-2023',
 ];
+
+function transformDateStringToArray(dateString) {
+    let [month, day, year] = dateString.split('/');
+
+    if (!year) {
+        [day, month, year] = dateString.split('-');
+    }
+
+    if (!year || isNaN(day) || isNaN(month) || isNaN(year)) {
+        return null;
+    }
+
+    return [day, month, year];
+}
 
 function getDate(arrayWithDates) {
   const getFilteredArray = arrayWithDates
     .map((date) => {
-      const parts = date.split(/[-/.]/);
-      if (parts.length !== 3) {
+      const parts = transformDateStringToArray(date); 
+      if (!parts) {
         return null;
       }
 
       let [day, month, year] = parts.map(Number);
 
-      const numberCheck = isNaN(day) || isNaN(month) || isNaN(year);
-
-      if (numberCheck) {
-        return null;
-      }
-
-      if (month > 12) {
+      if (month > 12 && month) {
         [day, month] = [month, day];
       }
 
@@ -69,4 +81,6 @@ function getDate(arrayWithDates) {
   return getFilteredArray;
 }
 
-console.log(getDate(dateArr));
+
+const validDates = getDate(dateArr);
+console.log(validDates);
