@@ -9,41 +9,38 @@ const toDoList = {
     },
   ],
 
-  addTask: function (idTask, priorityTask, nameTask) {
-    this.tasks.push({
-      id: idTask,
-      priority: priorityTask,
-      title: nameTask,
-    });
+  addTask: function (task) {
+    this.tasks.push(task);
   },
 
   deleteTask: function (idTask) {
-    const taskIndexLookup = this.tasks.find((el) => el.id === idTask);
-    const idIndex = this.tasks.indexOf(taskIndexLookup);
+    const tasksToDelete = this.tasks.filter((task) => task.id === idTask);
 
-    if (taskIndexLookup !== undefined) {
-      this.tasks.splice(idIndex, 1);
+    if (tasksToDelete.length > 0) {
+      tasksToDelete.forEach((task) => {
+        const idIndex = this.tasks.indexOf(task);
+        this.tasks.splice(idIndex, 1);
+      });
     } else {
       console.log(`нет задачи с id: ${idTask}`);
     }
   },
 
-  changeNameOrPriority: function (idTask, newPriority, newNameTask) {
-    return this.tasks.find((el) => {
-      if (el.id == idTask && newNameTask !== undefined) {
-        el.priority = newPriority;
-        el.title = newNameTask;
-        console.log(newNameTask);
-      } else {
-        el.priority = newPriority;
-      }
-    });
+  changeNameOrPriority: function (idTask, taskForUpdate) {
+    const taskIndex = this.tasks.findIndex((elem) => elem.id === idTask);
+    if (taskIndex) {
+      console.log(`Задачи с id ${idTask} не существует`);
+      return;
+    }
+
+    const updateTask = {...this.tasks[taskIndex], ...taskForUpdate}
+
+    this.tasks[taskIndex] = updateTask
   },
 
   sortPriorityTasks: function () {
     return this.tasks.sort((a, b) => a.priority - b.priority);
   },
 };
-
 
 

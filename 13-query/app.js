@@ -4,13 +4,11 @@ const query = {
 };
 
 function getQuery(obj) {
-  let str = '';
+  const str = Object.keys(obj)
+    .map((key) => `${key}=${obj[key]}`)
+    .join('&');
 
-  for (let key in obj) {
-    str += `${key}=${obj[key]}&`;
-  }
-
-  return str.slice(0, str.length - 1);
+  return str;
 }
 
 console.log(getQuery(query));
